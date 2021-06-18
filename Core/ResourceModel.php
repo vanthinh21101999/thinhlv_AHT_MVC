@@ -4,6 +4,7 @@ namespace My_MVC\Core;
 use My_MVC\Core\Model;
 use My_MVC\Core\ResourceModelInterface;
 use My_MVC\Config\Database;
+use PDO;
 
 class ResourceModel implements ResourceModelInterface
 {
@@ -27,7 +28,7 @@ class ResourceModel implements ResourceModelInterface
         $insert_key=[];
         $placeUpdate=[];
         if ($model->getId()===null){
-            //insert
+            
             foreach ($arrModel as $key=>$value){
                 $insert_key[] =$key;
                 array_push($placeholder, ':'.$key);
@@ -38,12 +39,14 @@ class ResourceModel implements ResourceModelInterface
             $sql_insert="INSERT INTO $this->table ({$strKeyIns}) VALUES ({$strPlaceholder})";
             $obj_insert =Database::getBdd()->prepare($sql_insert);
             return $obj_insert->execute($arrModel);
+
         }else{
+
             foreach ($arrModel as $k=>$item){
                 array_push($placeUpdate, $k.' = :'.$k);
             }
 
-            //update
+            
             $strPlaceUpdate=implode(', ',$placeUpdate);
             $sql_update="UPDATE {$this->table} SET $strPlaceUpdate WHERE id=:id";
             $obj_update=Database::getBdd()->prepare($sql_update);
@@ -65,7 +68,6 @@ class ResourceModel implements ResourceModelInterface
     {
         $sql_find = "SELECT * FROM $this->table WHERE id = $id";
         $obj_find = Database::getBdd()->prepare($sql_find);
-
         $obj_find->execute();
         return $obj_find->fetch();
     }
