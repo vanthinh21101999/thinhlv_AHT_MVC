@@ -4,6 +4,7 @@ namespace My_MVC\Core;
 use My_MVC\Core\Model;
 use My_MVC\Core\ResourceModelInterface;
 use My_MVC\Config\Database;
+use My_MVC\Models\TaskModel;
 use PDO;
 
 class ResourceModel implements ResourceModelInterface
@@ -58,18 +59,22 @@ class ResourceModel implements ResourceModelInterface
 
     public function getAll()
     {
+        
         $sql_select = "SELECT * FROM $this->table";
         $obj_select = Database::getBdd()->prepare($sql_select);
         $obj_select->execute();
-        return $obj_select->fetchAll();
+       
+        return ($obj_select->fetchAll(PDO::FETCH_OBJ)) ;
     }
 
     public function find($id)
     {
+
         $sql_find = "SELECT * FROM $this->table WHERE id = $id";
         $obj_find = Database::getBdd()->prepare($sql_find);
         $obj_find->execute();
-        return $obj_find->fetch();
+        return ($obj_find->fetch());
+        
     }
 
     public function delete($id)
