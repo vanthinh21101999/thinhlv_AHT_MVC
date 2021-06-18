@@ -11,6 +11,6 @@ class TaskResourceModel extends ResourceModel
     public function __construct()
     {
         $task =new TaskModel();
-        parent::_init('tasks', null, $task );
+        parent::_init('tasks', 'taskID', new TaskModel );
     }
 }
