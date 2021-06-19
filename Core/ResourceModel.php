@@ -59,22 +59,22 @@ class ResourceModel implements ResourceModelInterface
 
     public function getAll()
     {
-        
-        $sql_select = "SELECT * FROM $this->table";
-        $obj_select = Database::getBdd()->prepare($sql_select);
-        $obj_select->execute();
-       
-        return ($obj_select->fetchAll(PDO::FETCH_OBJ)) ;
+        $class = get_class($this->model);
+        $sql = "SELECT * FROM $this->table";
+        $req = Database::getBdd()->prepare($sql);
+        $req->execute();
+        return $req->fetchAll(PDO::FETCH_CLASS,$class);
     }
 
     public function find($id)
     {
+        $class = get_class($this->model);
+        $sql = "SELECT * FROM $this->table WHERE id = ?";
+        $req = Database::getBdd()->prepare($sql);
+        $req->execute([$id]);
+        $result=$req->fetchObject($class);
+        return $result;
 
-        $sql_find = "SELECT * FROM $this->table WHERE id = $id";
-        $obj_find = Database::getBdd()->prepare($sql_find);
-        $obj_find->execute();
-        return ($obj_find->fetch());
-        
     }
 
     public function delete($id)

@@ -6,34 +6,39 @@ use My_MVC\Models\TaskResourceModel;
 
 class TaskRepository 
 {
-    
+    private $taskResoucreModel;
+
+    function __construct(){
+        $this->taskResoucreModel = new TaskResourceModel();
+    }
+
     public function add($model)
     {
-        $task=new TaskResourceModel();
-        return $task->save($model);
+        $taskResourceModel = new TaskResourceModel();
+        return $taskResourceModel ->save($model);
     }
 
     public function find($id)
     {
-        $task= new TaskResourceModel();
-        return $task->find($id);
+        $taskResourceModel =  new TaskResourceModel();
+        return $taskResourceModel ->find($id);
     }
 
     public function delete($id)
     {
-        $task=new TaskResourceModel();
-        return $task->delete($id);
+        $taskResourceModel = new TaskResourceModel();
+        return $taskResourceModel ->delete($id);
         
     }
 
     public function getAll()
     {
-        $task=new TaskResourceModel();
-        return $task->getAll();
+        $taskResourceModel = new TaskResourceModel();
+        return $taskResourceModel ->getAll();
     }
 
     public function edit($model){
-        $task=new TaskResourceModel();
-        return $task->save($model);
+        $taskResourceModel = new TaskResourceModel();
+        return $taskResourceModel ->save($model);
     }
 }
