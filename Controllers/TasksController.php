@@ -40,7 +40,7 @@ class TasksController extends Controller
     function edit($id)
     {
         $taskR= new TaskRepository();
-        $d["tasks"] = $taskR->find($id);
+        $d["tasks"] = $taskR->get($id);
         if (isset($_POST["title"]))
         {
             $taskM=new TaskModel();

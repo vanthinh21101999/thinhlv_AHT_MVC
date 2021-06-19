@@ -9,7 +9,8 @@ class TaskRepository
     private $taskResoucreModel;
 
     function __construct(){
-        $this->taskResoucreModel = new TaskResourceModel();
+        $task =new TaskModel();
+        $this->taskResoucreModel = new TaskResourceModel('tasks', 'taskID', new TaskModel );
     }
 
     public function add($model)
@@ -18,7 +19,7 @@ class TaskRepository
         return $taskResourceModel ->save($model);
     }
 
-    public function find($id)
+    public function get($id)
     {
         $taskResourceModel =  new TaskResourceModel();
         return $taskResourceModel ->find($id);
